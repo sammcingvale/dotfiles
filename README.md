@@ -1,57 +1,57 @@
 # dotfiles
 
-A reproducible macOS dev environment. One script gets a fresh MacBook from "out of the box" to "fully configured Ghostty + Neovim + tmux + zsh."
+a reproducible macOS dev environment. ets a fresh MacBook from "out of the box" to "fully configured Ghostty + Neovim + tmux + zsh."
 
-## Stack
+## stack
 
 | Layer            | Tool                                |
 | ---------------- | ----------------------------------- |
-| Terminal         | [Ghostty](https://ghostty.org)      |
-| Shell            | zsh + [Starship](https://starship.rs) |
-| Editor           | Neovim + Lazy.nvim                  |
-| Multiplexer      | tmux + TPM                          |
-| Package manager  | Homebrew (via `Brewfile`)           |
-| Dotfile linking  | GNU Stow                            |
-| Theme            | Catppuccin Mocha (everywhere)       |
-| Font             | JetBrainsMono Nerd Font             |
+| terminal         | [Ghostty](https://ghostty.org)      |
+| shell            | zsh + [Starship](https://starship.rs) |
+| editor           | [Neovim](https://neovim.io/) + Lazy.nvim                  |
+| multiplexer      | tmux + TPM                          |
+| package manager  | Homebrew (via `Brewfile`)           |
+| dotfile linking  | GNU Stow                            |
+| theme            | Catppuccin Mocha (everywhere)       |
+| font             | JetBrainsMono Nerd Font             |
 
-## Quickstart on a brand new Mac
+## quickstart on a brand new Mac
 
 ```bash
-# 1. Get the repo (curl is preinstalled; git arrives via Xcode CLT)
+# 1. get the repo (curl is preinstalled; git arrives via Xcode CLT)
 mkdir -p ~/code && cd ~/code
 git clone https://github.com/<you>/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
-# 2. Run the bootstrap
+# 2. run the bootstrap
 ./install.sh
 ```
 
-That's it. The script will:
+that's it. the script will:
 
-1. Install Xcode Command Line Tools (prompts for GUI confirmation).
-2. Install Homebrew.
-3. Install everything in `Brewfile` (Ghostty, Neovim, tmux, CLI tools, fonts, etc.).
-4. Symlink configs into `$HOME` via stow (any existing files get backed up to `~/.dotfiles-backup-<timestamp>/`).
-5. Install tmux plugin manager (TPM).
-6. Set zsh as default shell.
-7. Apply sensible macOS defaults (key repeat, show hidden files, etc.).
+1. install Xcode Command Line Tools (prompts for GUI confirmation).
+2. install Homebrew.
+3. install everything in `Brewfile` (Ghostty, Neovim, tmux, CLI tools, fonts, etc.).
+4. symlink configs into `$HOME` via stow (any existing files get backed up to `~/.dotfiles-backup-<timestamp>/`).
+5. install tmux plugin manager (TPM).
+6. set zsh as default shell.
+7. apply sensible macOS defaults (key repeat, show hidden files, etc.).
 
-## After install — three things
+## after install — three things
 
-1. **Set your git identity.** Personal info isn't in this repo. Create `~/.gitconfig.local`:
+1. **set your git identity.** personal info isn't in this repo. create `~/.gitconfig.local`:
    ```ini
    [user]
-       name = Your Name
+       name = your name
        email = you@example.com
-       # signingkey = ABCD...
+       # signingkey = abcd...
    # [commit]
    #     gpgsign = true
    ```
-2. **Open tmux**, hit `Ctrl-a` then `Shift-i` to install plugins.
-3. **Open `nvim`** — Lazy.nvim auto-installs all plugins on first launch. Mason will install LSP servers (pyright, ts_ls, rust_analyzer, clangd, lua_ls, etc.) in the background.
+2. **open tmux**, hit `Ctrl-a` then `Shift-i` to install plugins.
+3. **open `nvim`** — Lazy.nvim auto-installs all plugins on first launch. Mason will install LSP servers (pyright, ts_ls, rust_analyzer, clangd, lua_ls, etc.) in the background.
 
-## Repo layout
+## repo layout
 
 ```
 dotfiles/
@@ -67,9 +67,9 @@ dotfiles/
     └── nvim/              # .config/nvim/  (Lazy.nvim setup)
 ```
 
-Each subdirectory of `stow/` is a "stow package." Running `stow zsh` from inside `stow/` symlinks every file in `zsh/` into the matching path in `$HOME`. So `stow/zsh/.zshrc` becomes `~/.zshrc`. The install script does this for all packages in one shot.
+each subdirectory of `stow/` is a "stow package." running `stow zsh` from inside `stow/` symlinks every file in `zsh/` into the matching path in `$HOME`. so `stow/zsh/.zshrc` becomes `~/.zshrc`. the install script does this for all packages in one shot.
 
-## Daily workflow
+## daily workflow
 
 ### tmux (prefix is `Ctrl-a`)
 
@@ -83,9 +83,9 @@ Each subdirectory of `stow/` is a "stow package." Running `stow zsh` from inside
 | `Ctrl-a` `r`   | Reload config         |
 | `Ctrl-a` `v`   | Enter copy mode (vim keys) |
 
-Sessions auto-save every 15min via tmux-continuum and restore on next launch.
+sessions auto-save every 15min via tmux-continuum and restore on next launch.
 
-### Neovim (leader is space)
+### neovim (leader is space)
 
 | Key            | Action                |
 | -------------- | --------------------- |
@@ -102,9 +102,9 @@ Sessions auto-save every 15min via tmux-continuum and restore on next launch.
 | `<space>rn`    | Rename symbol         |
 | `<S-h>` / `<S-l>` | Prev / next buffer  |
 
-Press `<space>` and wait — which-key shows everything available.
+press `<space>` and wait — which-key shows everything available.
 
-### Shell
+### shell
 
 | Alias / cmd | Does                          |
 | ----------- | ----------------------------- |
@@ -120,13 +120,13 @@ Press `<space>` and wait — which-key shows everything available.
 
 `Ctrl-r` opens fzf history search. `Ctrl-t` opens fzf file picker. `Alt-c` opens fzf cd.
 
-## Customizing
+## customizing
 
-- **Theme:** edit `stow/ghostty/.config/ghostty/config` (theme line), `stow/starship/.config/starship.toml`, `stow/tmux/.tmux.conf` status block, and `stow/nvim/.config/nvim/lua/plugins/colorscheme.lua`.
-- **Per-machine zsh tweaks:** drop them in `~/.zshrc.local` (sourced at the end of `.zshrc`, gitignored).
-- **Add a Brew package:** append to `Brewfile`, run `brew bundle`. To remove, delete the line and run `brew bundle cleanup --zap`.
+- **theme:** edit `stow/ghostty/.config/ghostty/config` (theme line), `stow/starship/.config/starship.toml`, `stow/tmux/.tmux.conf` status block, and `stow/nvim/.config/nvim/lua/plugins/colorscheme.lua`.
+- **per-machine zsh tweaks:** drop them in `~/.zshrc.local` (sourced at the end of `.zshrc`, gitignored).
+- **add a Brew package:** append to `Brewfile`, run `brew bundle`. To remove, delete the line and run `brew bundle cleanup --zap`.
 
-## Pushing this repo to GitHub
+## pushing this repo to GitHub
 
 ```bash
 cd ~/dotfiles
@@ -138,13 +138,13 @@ gh repo create dotfiles --public --source=. --push
 
 (`gh` is in the Brewfile. `gh auth login` first if you haven't.)
 
-## Troubleshooting
+## troubleshooting
 
 - **`stow: ERROR: existing target is not owned by stow`** — your old config is still in place. The install script auto-backs these up; if you ran stow manually, check `~/.dotfiles-backup-*` and re-run `./install.sh`.
-- **Icons look like boxes** — Ghostty isn't using a Nerd Font. The Brewfile installs JetBrainsMono Nerd Font; verify the `font-family` in `~/.config/ghostty/config`.
+- **icons look like boxes** — Ghostty isn't using a Nerd Font. The Brewfile installs JetBrainsMono Nerd Font; verify the `font-family` in `~/.config/ghostty/config`.
 - **tmux true colors look off** — make sure `$TERM` is `tmux-256color` inside tmux and `xterm-256color` outside.
 - **Ghostty isn't installed** — Ghostty is in the Brewfile as a cask; if it failed, `brew install --cask ghostty` directly.
 
-## License
+## license
 
 MIT, do whatever.
