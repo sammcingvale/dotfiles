@@ -61,7 +61,7 @@ alias gs='git status -sb'
 alias gd='git diff'
 alias gl='git log --oneline --graph --decorate -20'
 alias lg='lazygit'
-alias dots='cd ~/dotfiles'
+alias dots='cd ~/Gits/dotfiles'
 alias reload='source ~/.zshrc && echo "zsh reloaded."'
 alias ports='lsof -i -P -n | grep LISTEN'
 alias myip='curl -s ifconfig.me && echo'
@@ -111,6 +111,9 @@ quotes=(
   "In the universe, no matter how fast you are, someone is faster."
   "Time is the cruelest force of all."
   "Wake up, Neo."
+  "There is no spoon."
+  "I know kung fu."
+  "You think that's air you're breathing now?"
 )
 printf "\033[2;37m%s\033[0m\n" "${quotes[$RANDOM % ${#quotes[@]} + 1]}"
 
