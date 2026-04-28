@@ -1,3 +1,6 @@
+-- Modern LSP setup using Neovim 0.11+ core API (vim.lsp.config / vim.lsp.enable).
+-- nvim-lspconfig is still installed because it ships server-specific
+-- configs (cmd, filetypes, root_markers) that vim.lsp picks up automatically.
 return {
   {
     "neovim/nvim-lspconfig",
@@ -8,64 +11,53 @@ return {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
     },
     config = function()
-      -- Servers to install + use
+      -- Servers we want enabled. Names match nvim-lspconfig's lsp/*.lua files.
       local servers = {
-        lua_ls   = {
-          settings = { Lua = { diagnostics = { globals = { "vim" } } } },
-        },
-        pyright  = {},
-        ts_ls    = {},     -- typescript/javascript
-        rust_analyzer = {},
-        clangd   = {},
-        bashls   = {},
-        jsonls   = {},
-        yamlls   = {},
-        marksman = {},     -- markdown
+        "lua_ls", "pyright", "ts_ls", "rust_analyzer",
+        "clangd", "bashls", "jsonls", "yamlls", "marksman",
       }
 
+      -- Install via mason
       require("mason-lspconfig").setup({
-        ensure_installed = vim.tbl_keys(servers),
+        ensure_installed = servers,
         automatic_installation = true,
       })
 
       require("mason-tool-installer").setup({
         ensure_installed = {
-          "stylua",        -- lua formatter
-          "ruff",          -- python linter+formatter
-          "prettier",
-          "shellcheck",
+          "stylua", "ruff", "prettier", "shellcheck",
         },
       })
 
-      -- Default capabilities for autocompletion
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      local has_cmp, cmp = pcall(require, "cmp_nvim_lsp")
-      if has_cmp then
-        capabilities = cmp.default_capabilities(capabilities)
-      end
+      -- Per-server overrides. nvim-lspconfig provides sensible defaults
+      -- via its bundled lsp/*.lua files; we just layer extras on top.
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = { diagnostics = { globals = { "vim" } } },
+        },
+      })
 
-      for name, cfg in pairs(servers) do
-        cfg.capabilities = capabilities
-        require("lspconfig")[name].setup(cfg)
-      end
+      -- Enable every server. vim.lsp resolves each name against
+      -- runtimepath/lsp/<name>.lua (provided by nvim-lspconfig).
+      vim.lsp.enable(servers)
 
-      -- LSP keymaps on attach
+      -- Buffer-local keymaps when an LSP attaches
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(ev)
           local map = function(keys, fn, desc)
             vim.keymap.set("n", keys, fn, { buffer = ev.buf, desc = "LSP: " .. desc })
           end
-          map("gd", vim.lsp.buf.definition,      "Goto definition")
-          map("gr", vim.lsp.buf.references,      "References")
-          map("gi", vim.lsp.buf.implementation,  "Implementation")
-          map("K",  vim.lsp.buf.hover,           "Hover")
-          map("<leader>rn", vim.lsp.buf.rename,  "Rename")
-          map("<leader>ca", vim.lsp.buf.code_action, "Code action")
+          map("gd", vim.lsp.buf.definition,         "Goto definition")
+          map("gr", vim.lsp.buf.references,         "References")
+          map("gi", vim.lsp.buf.implementation,     "Implementation")
+          map("K",  vim.lsp.buf.hover,              "Hover")
+          map("<leader>rn", vim.lsp.buf.rename,     "Rename")
+          map("<leader>ca", vim.lsp.buf.code_action,"Code action")
           map("<leader>cf", function() vim.lsp.buf.format({ async = true }) end, "Format")
         end,
       })
 
-      -- Diagnostic look
+      -- Diagnostic appearance
       vim.diagnostic.config({
         virtual_text = { prefix = "●", spacing = 2 },
         signs = true,

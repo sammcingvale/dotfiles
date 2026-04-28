@@ -1,6 +1,8 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "master",
+    version = false,
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     main = "nvim-treesitter.configs",
@@ -10,7 +12,7 @@ return {
         "json", "lua", "make", "markdown", "markdown_inline",
         "python", "rust", "toml", "tsx", "typescript",
         "vim", "vimdoc", "yaml",
-        "arduino", -- for the rocket project
+        "arduino",
       },
       auto_install = true,
       highlight = { enable = true },
@@ -25,5 +27,9 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+      vim.treesitter.language.register("markdown", { "mdx", "markdown.mdx" })
+    end,
   },
 }
