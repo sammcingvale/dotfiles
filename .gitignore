@@ -1,0 +1,6 @@
+# Don't commit local-only config
+stow/git/.gitconfig.local
+.zshrc.local
+
+# macOS junk
+.DS_Store

@@ -1,0 +1,51 @@
+# ~/.gitconfig — committed to dotfiles repo.
+# Personal info (name, email, signing key) lives in ~/.gitconfig.local
+# which is git-ignored. See README.
+
+[include]
+    path = ~/.gitconfig.local
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = true
+
+[push]
+    autoSetupRemote = true
+    default = current
+
+[fetch]
+    prune = true
+
+[diff]
+    colorMoved = default
+    algorithm = histogram
+
+[merge]
+    conflictStyle = zdiff3
+
+[rerere]
+    enabled = true
+
+[core]
+    editor = nvim
+    excludesfile = ~/.gitignore_global
+    pager = bat --style=plain --paging=always
+
+[color]
+    ui = auto
+
+[alias]
+    st = status -sb
+    co = checkout
+    br = branch
+    ci = commit
+    ca = commit --amend
+    can = commit --amend --no-edit
+    lg = log --oneline --graph --decorate --all -30
+    last = log -1 HEAD
+    unstage = reset HEAD --
+    wip = !git add -A && git commit -m "WIP"
+    undo = reset --soft HEAD~1
+    nuke = !git clean -fdx && git reset --hard

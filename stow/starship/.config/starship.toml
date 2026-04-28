@@ -1,0 +1,64 @@
+# ~/.config/starship.toml
+# Minimal two-line prompt with git, language, and exit status awareness.
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[╭─](#6c7086) $directory$git_branch$git_status$python$nodejs$rust$cmd_duration
+[╰─](#6c7086)$character """
+
+add_newline = true
+
+[character]
+success_symbol = "[➜](bold #a6e3a1)"
+error_symbol   = "[✗](bold #f38ba8)"
+vimcmd_symbol  = "[](bold #cba6f7)"
+
+[directory]
+style = "bold #89b4fa"
+truncation_length = 3
+truncate_to_repo = false
+read_only = " "
+
+[git_branch]
+symbol = " "
+style = "bold #cba6f7"
+format = "on [$symbol$branch]($style) "
+
+[git_status]
+style = "bold #f9e2af"
+format = '([\[$all_status$ahead_behind\]]($style) )'
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+modified = "!${count}"
+staged = "+${count}"
+untracked = "?${count}"
+stashed = "*${count}"
+
+[python]
+symbol = " "
+style = "bold #f9e2af"
+format = 'via [$symbol$pyenv_prefix($version )(\($virtualenv\) )]($style)'
+
+[nodejs]
+symbol = " "
+style = "bold #a6e3a1"
+format = 'via [$symbol($version )]($style)'
+
+[rust]
+symbol = " "
+style = "bold #fab387"
+format = 'via [$symbol($version )]($style)'
+
+[cmd_duration]
+min_time = 2_000
+style = "#6c7086"
+format = "took [$duration]($style) "
+
+# Hide things you don't care about by default
+[aws]
+disabled = true
+[gcloud]
+disabled = true
+[package]
+disabled = true
