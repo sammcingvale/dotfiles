@@ -40,4 +40,3 @@ cask "font-fira-code-nerd-font"
 # ── GUI apps you probably want anyway ────────────────────────────────
 cask "rectangle"               # window snapping
 cask "raycast"                 # spotlight replacement
-cask "visual-studio-code"      # backup editor for when you don't want neovim
