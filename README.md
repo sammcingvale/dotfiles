@@ -23,7 +23,7 @@ mkdir -p ~/code && cd ~/code
 git clone https://github.com/<you>/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
-# 2. run the bootstrap
+# 2. install everything
 ./install.sh
 ```
 
@@ -75,13 +75,13 @@ each subdirectory of `stow/` is a "stow package." running `stow zsh` from inside
 
 | Key            | Action                |
 | -------------- | --------------------- |
-| `Ctrl-a` `\|`  | Vertical split        |
-| `Ctrl-a` `-`   | Horizontal split      |
-| `Ctrl-a` `h/j/k/l` | Move between panes |
-| `Ctrl-a` `H/J/K/L` | Resize pane (repeatable) |
-| `Ctrl-a` `c`   | New window            |
-| `Ctrl-a` `r`   | Reload config         |
-| `Ctrl-a` `v`   | Enter copy mode (vim keys) |
+| `ctrl-a` `\|`  | vertical split        |
+| `ctrl-a` `-`   | horizontal split      |
+| `ctrl-a` `h/j/k/l` | move between panes |
+| `ctrl-a` `H/J/K/L` | resize pane (repeatable) |
+| `ctrl-a` `c`   | new window            |
+| `ctrl-a` `r`   | reload config         |
+| `ctrl-a` `v`   | enter copy mode (vim keys) |
 
 sessions auto-save every 15min via tmux-continuum and restore on next launch.
 
@@ -89,24 +89,24 @@ sessions auto-save every 15min via tmux-continuum and restore on next launch.
 
 | Key            | Action                |
 | -------------- | --------------------- |
-| `<space>ff`    | Find file (Telescope) |
-| `<space>fg`    | Live grep             |
-| `<space>fb`    | List buffers          |
-| `<space>e`     | Toggle file tree      |
-| `<space>gg`    | Open lazygit          |
-| `<space>w`     | Save                  |
-| `gd`           | Go to definition (LSP) |
-| `K`            | Hover docs (LSP)      |
-| `<space>ca`    | Code action           |
-| `<space>cf`    | Format buffer         |
-| `<space>rn`    | Rename symbol         |
-| `<S-h>` / `<S-l>` | Prev / next buffer  |
+| `<space>ff`    | find file (Telescope) |
+| `<space>fg`    | live grep             |
+| `<space>fb`    | list buffers          |
+| `<space>e`     | toggle file tree      |
+| `<space>gg`    | open lazygit          |
+| `<space>w`     | save                  |
+| `gd`           | go to definition (LSP) |
+| `K`            | hover docs (LSP)      |
+| `<space>ca`    | code action           |
+| `<space>cf`    | format buffer         |
+| `<space>rn`    | rename symbol         |
+| `<S-h>` / `<S-l>` | prev / next buffer  |
 
 press `<space>` and wait — which-key shows everything available.
 
 ### shell
 
-| Alias / cmd | Does                          |
+| alias / cmd | Does                          |
 | ----------- | ----------------------------- |
 | `ll`        | `eza -lah --git` (long list)  |
 | `lt`        | tree view, 2 levels deep      |
@@ -118,7 +118,7 @@ press `<space>` and wait — which-key shows everything available.
 | `ports`     | which ports are listening     |
 | `z <dir>`   | jump to a frecent dir (zoxide) |
 
-`Ctrl-r` opens fzf history search. `Ctrl-t` opens fzf file picker. `Alt-c` opens fzf cd.
+`ctrl-r` opens fzf history search. `ctrl-t` opens fzf file picker. `alt-c` opens fzf cd.
 
 ## customizing
 
