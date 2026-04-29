@@ -64,7 +64,7 @@ done
 for dir in */; do
   pkg="${dir%/}"
   log "Stowing $pkg"
-  stow -v -R -t "$HOME" "$pkg"
+  stow -v -R --no-folding -t "$HOME" "$pkg"
 done
 
 # ── 5. tmux plugin manager ───────────────────────────────────────────
