@@ -19,8 +19,8 @@ a reproducible macOS dev environment. ets a fresh MacBook from "out of the box" 
 
 ```bash
 # 1. get the repo (curl is preinstalled; git arrives via Xcode CLT)
-mkdir -p ~/code && cd ~/code
-git clone https://github.com/<you>/dotfiles.git ~/dotfiles
+mkdir -p ~/Gits && cd ~/Gits
+git clone https://github.com/sammcingvale/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
 # 2. install everything
