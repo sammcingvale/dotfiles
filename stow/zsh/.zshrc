@@ -67,6 +67,7 @@ alias reload='source ~/.zshrc && echo "zsh reloaded."'
 alias ports='lsof -i -P -n | grep LISTEN'
 alias myip='curl -s ifconfig.me && echo'
 alias serve='python3 -m http.server'
+alias claw-stop='pkill -f openclaw && pkill -f "Chromium.*openclaw"'
 
 # Project shortcuts (edit to taste)
 alias rocket='cd ~/code/rocket-tracker'
