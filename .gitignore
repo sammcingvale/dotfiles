@@ -1,4 +1,4 @@
-# Don't commit local-only config
+# don't commit local-only config
 stow/git/.gitconfig.local
 .zshrc.local
 
