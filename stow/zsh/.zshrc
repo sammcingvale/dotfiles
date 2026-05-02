@@ -38,6 +38,9 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'    # case-insensitive
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
+# Tool-specific completions
+command -v openclaw &>/dev/null && source <(openclaw completion --shell zsh)
+
 # ── Key bindings ─────────────────────────────────────────────────────
 bindkey -e   # emacs-style. Switch to `bindkey -v` for vim mode.
 bindkey '^[[A' history-search-backward    # up arrow searches history by prefix
@@ -62,7 +65,6 @@ alias gd='git diff'
 alias gl='git log --oneline --graph --decorate -20'
 alias lg='lazygit'
 alias gits='cd ~/Gits'
-alias dots='cd ~/Gits/dotfiles'
 alias reload='source ~/.zshrc && echo "zsh reloaded."'
 alias ports='lsof -i -P -n | grep LISTEN'
 alias myip='curl -s ifconfig.me && echo'
@@ -70,8 +72,10 @@ alias serve='python3 -m http.server'
 alias claw-stop='pkill -f openclaw && pkill -f "Chromium.*openclaw"'
 
 # Project shortcuts (edit to taste)
+alias dots='cd ~/Gits/dotfiles'
 alias rocket='cd ~/code/rocket-tracker'
 alias wf='cd ~/code/wallfacer'
+alias claw='cd ~/Gits/sams-claw'
 
 # ── Tools ────────────────────────────────────────────────────────────
 # fzf
