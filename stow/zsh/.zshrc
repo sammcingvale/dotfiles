@@ -39,7 +39,6 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'    # case-insensitive
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # Tool-specific completions
-command -v openclaw &>/dev/null && source <(openclaw completion --shell zsh)
 
 # ── Key bindings ─────────────────────────────────────────────────────
 bindkey -e   # emacs-style. Switch to `bindkey -v` for vim mode.
@@ -69,7 +68,7 @@ alias reload='source ~/.zshrc && echo "zsh reloaded."'
 alias ports='lsof -i -P -n | grep LISTEN'
 alias myip='curl -s ifconfig.me && echo'
 alias serve='python3 -m http.server'
-alias claw-stop='pkill -f openclaw && pkill -f "Chromium.*openclaw"'
+alias claw-stop='openclaw gateway stop; pkill -f openclaw; pkill -f "Chromium.*openclaw"'
 
 # Project shortcuts (edit to taste)
 alias dots='cd ~/Gits/dotfiles'
@@ -125,3 +124,6 @@ printf "\033[2;37m%s\033[0m\n" "${quotes[$RANDOM % ${#quotes[@]} + 1]}"
 
 # ── Local overrides (gitignored) ─────────────────────────────────────
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+
+# OpenClaw Completion
+source "/Users/sam/.openclaw/completions/openclaw.zsh"
