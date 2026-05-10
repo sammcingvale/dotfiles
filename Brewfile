@@ -25,6 +25,7 @@ brew "yq"                      # YAML
 brew "tree"
 brew "wget"
 brew "httpie"                  # better curl for APIs
+cask "1password-cli"           # 1Password CLI
 
 # ── Languages / build ────────────────────────────────────────────────
 brew "node"
