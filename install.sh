@@ -38,6 +38,34 @@ fi
 log "Installing packages from Brewfile..."
 brew bundle --file="$DOTFILES_DIR/Brewfile"
 
+# ── 3b. Verify Homebrew dependency health ────────────────────────────
+log "Checking Homebrew dependency health..."
+
+# 1. Are any declared dependencies missing?
+if missing=$(brew missing 2>&1) && [ -n "$missing" ]; then
+  warn "Formulae with missing dependencies:"
+  echo "$missing"
+  warn "Reinstalling affected formulae..."
+  echo "$missing" | awk -F: '{print $1}' | xargs -n1 brew reinstall
+fi
+
+# 2. Any binaries linked against libraries that no longer exist?
+#    (catches the libgit2 / libllhttp.9.3.dylib class of issue)
+log "Checking for broken library linkage..."
+broken=$(brew list --formula | while read -r f; do
+  if ! brew linkage --test "$f" &>/dev/null; then
+    echo "$f"
+  fi
+done)
+
+if [ -n "$broken" ]; then
+  warn "Formulae with broken linkage (rebuilding):"
+  echo "$broken"
+  echo "$broken" | xargs -n1 brew reinstall
+else
+  log "All formulae have working linkage."
+fi
+
 # ── 4. Backup existing dotfiles, then stow ───────────────────────────
 log "Linking configs into \$HOME with stow..."
 cd "$DOTFILES_DIR/stow"
